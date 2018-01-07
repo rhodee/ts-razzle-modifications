@@ -1,0 +1,132 @@
+{
+  "name": "ts-razzle-modifications",
+  "license": "MIT",
+  "description": "Typescript Razzle modification function",
+  "version": "0.0.1",
+  "homepage": "https://github.com/rhodee/ts-razzle-modificaions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhodee/ts-razzle-modificaions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhodee/ts-razzle-modificaions/issues"
+  },
+  "author": "Denis Rhoden <info@rhodee.us>",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "contributors": [
+    {
+      "name": "Denis Rhoden",
+      "email": "info@rhodee.us"
+    }
+  ],
+  "keywords": [
+    "react",
+    "razzle",
+    "typescript",
+    "universal"
+  ],
+  "scripts": {
+    "build:ts": "tsc",
+    "build": "run-p --aggregate-output build:ts",
+    "clean:artifacts": "del 'dist/*'",
+    "clean": "run-p clean:artifacts",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "docs:doctoc": "doctoc Readme.md CONTRIBUTING.md",
+    "docs:readme": "run-p contributors:generate docs:doctoc",
+    "docs": "run-s docs:readme",
+    "format": "prettier --trailing-comma none --single-quote --write 'src/**/*' '__tests__/**/*'",
+    "info": "npm-scripts-info",
+    "lint-staged": "lint-staged",
+    "lint": "tslint --fix",
+    "prebuild": "run-p clean",
+    "precommit": "lint-staged",
+    "prerelease": "npm run build",
+    "prettier": "prettier --trailing-comma none --single-quote --write",
+    "release": "standard-version -a",
+    "test": "jest test"
+  },
+  "scripts-info": {
+    "build": "Compiles the razzle modify function",
+    "clean": "Remove artifacts",
+    "docs": "generate app documentation",
+    "info": "Displays information about the scripts",
+    "release": "cut a release",
+    "test": "Run test suite"
+  },
+  "lint-staged": {
+    "src/*.{ts,tsx}": [
+      "prettier",
+      "lint",
+      "git add"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testMatch": [
+      "<rootDir>/__tests__/**/*.ts?(x)",
+      "<rootDir>/__tests__/**/?(*.)(spec|test).ts?(x)"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^21.0.0",
+    "@types/webpack-env": "^1.13.3",
+    "@types/webpack": "^3.8.2",
+    "all-contributors-cli": "^4.8.1",
+    "del-cli": "^1.1.0",
+    "doctoc": "^1.3.0",
+    "husky": "^0.14.3",
+    "jest": "^21.1.0",
+    "lint-staged": "6.0.0",
+    "npm-run-all": "^4.1.2",
+    "npm-scripts-info": "^0.3.6",
+    "prettier": "^1.7.0",
+    "razzle": "^0.8.7",
+    "rimraf": "^2.6.2",
+    "source-map-support": "^0.5.0",
+    "standard-version": "^4.2.0",
+    "stylelint-config-standard": "^18.0.0",
+    "tslint-config-prettier": "^1.6.0",
+    "tslint-config-shopify": "^3.0.1",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-consistent-codestyle": "^1.9.2",
+    "typescript": "2.6.2"
+  },
+  "peerDependencies": {
+    "razzle": "^0.8.7",
+    "source-map-support": "^0.5.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "base64-font-loader": "^0.0.4",
+    "brotli-webpack-plugin": "^0.5.0",
+    "case-sensitive-paths-webpack-plugin": "^2.1.1",
+    "circular-dependency-plugin": "^4.2.1",
+    "compression-webpack-plugin": "^1.1.2",
+    "modernizr": "^3.5.0",
+    "modernizr-loader": "^1.0.1",
+    "pwa-manifest-webpack-plugin": "^1.0.5",
+    "source-map-loader": "^0.2.0",
+    "stylelint": "^8.3.0",
+    "stylelint-webpack-plugin": "^0.9.0",
+    "ts-jest": "^21.2.4",
+    "ts-loader": "^3.2.0",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.5.0",
+    "webpack": "^3.10.0",
+    "workbox-sw": "^2.1.1",
+    "workbox-webpack-plugin": "^2.1.2"
+  }
+}

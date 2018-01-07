@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": false,
+    "lib": ["es6", "es2015", "es2017"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "removeComments": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "stripInternal": true,
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": [ "node_modules/@types" ]
+  },
+  "exclude": [ "node_modules", "dist", "jest" ],
+  "types": ["typePatches", "node", "webpack-env"]
+}

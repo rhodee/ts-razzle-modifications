@@ -1,0 +1,28 @@
+{
+  "projectName": "ts-razzle-modifications",
+  "projectOwner": "rhodee",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "rhodee",
+      "name": "Denis Rhoden",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/737290?s=400",
+      "profile": "http://rhodee.us",
+      "contributions": [
+        "question",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "ideas",
+        "review",
+        "test",
+        "tool"
+      ]
+    }
+  ]
+}

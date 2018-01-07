@@ -1,0 +1,12 @@
+{
+    "extends": [
+      "tslint-config-shopify",
+      "tslint-consistent-codestyle",
+      "tslint-config-prettier",
+      "tslint-config-standard"
+    ],
+    "rules": {
+      "jsx-no-multiline-js": false,
+      "trailing-comma-interface": false
+    }
+  }
