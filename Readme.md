@@ -25,7 +25,9 @@ Read more about [structuring your React Application](https://www.rhodee.us) to m
 
 ```js
 // razzle.config.js
-const modifyBuilder = require('ts-razzle-modifictions')
+const modifyBuilder = require('ts-razzle-modifications').modifyBuilder
+const webpack = require('webpack')
+const path = require('path')
 
 const customConfigs = {
   appRoot: path.resolve(__dirname),

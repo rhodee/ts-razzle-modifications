@@ -1,7 +1,7 @@
 import * as webpack from 'webpack'
-import MinifyPlugin from 'babel-minify-webpack-plugin'
-import BrotliPlugin from 'brotli-webpack-plugin'
-import CompressionPlugin from 'compression-webpack-plugin'
+import * as MinifyPlugin from 'babel-minify-webpack-plugin'
+import * as BrotliPlugin from 'brotli-webpack-plugin'
+import * as CompressionPlugin from 'compression-webpack-plugin'
 
 const optimizeAssets = (): webpack.Plugin[] => [
   new CompressionPlugin({

@@ -1,5 +1,5 @@
 import * as webpack from 'webpack'
-import StyleLintPlugin from 'stylelint-webpack-plugin'
+import * as StyleLintPlugin from 'stylelint-webpack-plugin'
 
 export interface StylelintConfig {
   context: string

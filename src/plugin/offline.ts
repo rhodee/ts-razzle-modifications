@@ -1,6 +1,6 @@
 import * as webpack from 'webpack'
-import WorkboxPlugin from 'workbox-webpack-plugin'
-import WebpackPwaManifest from 'pwa-manifest-webpack-plugin'
+import * as WorkboxPlugin from 'workbox-webpack-plugin'
+import * as WebpackPwaManifest from 'pwa-manifest-webpack-plugin'
 
 export interface PWAIcon {
   src: string

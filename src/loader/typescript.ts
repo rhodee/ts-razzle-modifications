@@ -4,7 +4,7 @@ import * as webpack from 'webpack'
  *
  * @param config
  */
-export const tsLoader = (config: webpack.Configuration): webpack.Rule => {
+export const tsLoader = (config: webpack.Configuration): any => {
   // Safely locate Babel-Loader in Razzle's webpack internals
   const rules = (config.module as webpack.NewModule).rules
   const babelLoader = rules && rules.findIndex((rule) => rule['options'] && rule['options']['babelrc'])
@@ -13,11 +13,7 @@ export const tsLoader = (config: webpack.Configuration): webpack.Rule => {
   return {
     include,
     test: /\.tsx?$/,
-    use: 'ts-loader',
-    options: {
-      // this will make errors clickable in `Problems` tab of VSCode
-      // visualStudioErrorFormat: true,
-    }
+    loader: 'ts-loader'
   }
 }
 
@@ -26,17 +22,12 @@ export const tsLoader = (config: webpack.Configuration): webpack.Rule => {
  * @param config
  * @param configFilePath
  */
-export const tslintLoader = (config: webpack.Configuration, configFilePath: string): webpack.Rule => {
-  // Safely locate Babel-Loader in Razzle's webpack internals
-  const rules = (config.module as webpack.NewModule).rules
-  const babelLoader = rules && rules.findIndex((rule) => rule['options'] && rule['options']['babelrc'])
-  const { include } = rules[babelLoader]
+export const tslintLoader = (_config: webpack.Configuration, configFilePath: string): any => {
 
   return {
-    include,
     enforce: 'pre',
     test: /\.tsx?$/,
-    use: ['tslint-loader'],
+    loader: 'tslint-loader',
     options: {
       emitErrors: true,
       configFile: configFilePath
