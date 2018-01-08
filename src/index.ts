@@ -174,7 +174,7 @@ export function modifyBuilder (
         }
       }
 
-      if (config.entry && config.entry['vendor']) {
+      if (config.entry && razzleOptions.vendorPaths) {
         config.entry['vendor'] = razzleOptions.vendorPaths || []
       }
 
