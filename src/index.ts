@@ -4,6 +4,9 @@ import { isDev, isServer } from './utils'
 import { coreResolver } from './resolve'
 import { tslintLoader, tsLoader } from './loader/typescript'
 import { sourcemapLoader } from './loader/sourcemap'
+import { modernizrcLoader } from './loader/modernizr'
+import { imageLoader } from './loader/image'
+import { fontLoader } from './loader/font'
 import { stylelintPlugin } from './plugin/stylelint'
 import { offline } from './plugin/offline'
 import {
@@ -11,7 +14,6 @@ import {
   client as clientCommonPlugins
 } from './plugin/common'
 import { optimizeAssets } from './plugin/optimization'
-import { modernizrcLoader } from './loader/modernizr'
 import { defaultConfig } from './defaultConfig'
 
 export declare namespace razzleBuild {
@@ -158,7 +160,12 @@ export function modifyBuilder (
     if (!isServer(target)) {
       if (config.module && config.module.hasOwnProperty('rules')) {
         const r = (config.module as webpack.NewModule).rules
-        r.push(modernizrcLoader(razzleOptions.modernizrConfig))
+        const l = [
+          modernizrcLoader(razzleOptions.modernizrConfig),
+          imageLoader(),
+          fontLoader()
+        ]
+        r.push(...l)
       }
 
       // Set the output path for client-side JS
