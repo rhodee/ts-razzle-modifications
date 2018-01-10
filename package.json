@@ -115,6 +115,7 @@
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "circular-dependency-plugin": "^4.2.1",
     "compression-webpack-plugin": "^1.1.2",
+    "image-webpack-loader": "^3.4.2",
     "modernizr": "^3.5.0",
     "modernizr-loader": "^1.0.1",
     "pwa-manifest-webpack-plugin": "^1.0.5",

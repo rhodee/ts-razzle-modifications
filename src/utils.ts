@@ -24,7 +24,3 @@ export function isDev (env: boolean | string | undefined): boolean {
 export function isServer (target: string): boolean {
   return target === 'node'
 }
-
-export function isClient (target: string): boolean {
-  return target !== 'node'
-}

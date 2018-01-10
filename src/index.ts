@@ -111,7 +111,7 @@ export function modifyBuilder (
 
       if (isDev(dev)) {
         baseConfig.plugins && baseConfig.plugins.push(...customServerPlugins)
-      } else if (!isDev(dev)) {
+      } else {
         baseConfig.plugins && baseConfig.plugins.push(...customServerPlugins)
       }
     }
@@ -124,7 +124,7 @@ export function modifyBuilder (
       }
       if (isDev(dev)) {
         baseConfig.plugins && baseConfig.plugins.push(...customClientPlugins)
-      } else if (!isDev(dev)) {
+      } else {
         baseConfig.plugins && baseConfig.plugins.push(...customClientPlugins)
       }
     }
@@ -147,25 +147,24 @@ export function modifyBuilder (
 
     if (config.module && config.module.hasOwnProperty('rules')) {
       const r = (config.module as webpack.NewModule).rules
-      babelLoader = r.findIndex(
-        rule => rule['options'] && rule['options']['babelrc']
-      )
+      babelLoader = r.findIndex(rule => {
+        return rule['options'] && rule['options']['babelrc']
+      })
       r[babelLoader] = tsLoader(config)
       r.push(sourcemapLoader())
       if (razzleOptions.extensions && razzleOptions.extensions.tslintConfig) {
         r.push(tslintLoader(config, razzleOptions.extensions.tslintConfig))
       }
+      config.module['rules'] = r
     }
 
     if (!isServer(target)) {
       if (config.module && config.module.hasOwnProperty('rules')) {
         const r = (config.module as webpack.NewModule).rules
-        const l = [
-          modernizrcLoader(razzleOptions.modernizrConfig),
-          imageLoader(),
-          fontLoader()
-        ]
-        r.push(...l)
+        r.push(imageLoader())
+        r.push(fontLoader())
+        r.push(modernizrcLoader(razzleOptions.modernizrConfig))
+        config.module['rules'] = r
       }
 
       // Set the output path for client-side JS
