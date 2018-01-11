@@ -2,12 +2,12 @@ import * as webpack from 'webpack'
 
 /**
  *
- * @param config
- * @param configFilePath
+ * @param loaderPath
  */
-export const sourcemapLoader = (): webpack.Rule => {
+export const sourcemapLoader = (loaderPath?: RegExp | undefined): webpack.Rule => {
+  const test = loaderPath || /\.js$/
   return {
-    test: /\.js$/,
+    test,
     use: ['source-map-loader']
   }
 }

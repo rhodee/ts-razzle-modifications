@@ -28,10 +28,12 @@ Read more about [structuring your React Application](https://www.rhodee.us) to m
 const modifyBuilder = require('ts-razzle-modifications').modifyBuilder
 const webpack = require('webpack')
 const path = require('path')
+const appRoot = path.resolve(__dirname)
+const srcRoot = path.join(appRoot, 'src')
 
 const customConfigs = {
-  appRoot: path.resolve(__dirname),
-  srcRoot: path.resolve(__dirname, 'src'),
+  appRoot,
+  srcRoot,
   modernizrConfig: /\.modernizrrc$/,
   workboxConfig: {
     globDirectory: path.join(path.resolve(__dirname), 'build'),
@@ -42,56 +44,28 @@ const customConfigs = {
     skipWaiting: true
   },
   pwaConfig: {
-    name: 'My React App',
+    name: 'React App',
     short_name: 'app',
     orientation: 'portrait',
-    display: 'fullscreen', // 'standalone'
-    description: 'My react app on razzle',
-    start_url: '.', // start page for this PWA?
+    display: 'fullscreen',
+    description: 'react on razzle',
+    start_url: '.',
     theme_color: '#ffffff',
     background_color: '#ffffff',
-    // related_applications is not required.
-    related_applications: [
-      {
-        platform: 'play',
-        url: 'https://play.google.com/store/apps/details?id=GOOGLE_APP_ID',
-        id: 'GOOGLE_APP_ID'
-      },
-      {
-        platform: 'itunes',
-        url: 'https://itunes.apple.com/us/app/APP_OWNER/idAPP_ID'
-      }
-    ],
-    // At least one is required, all three are optimal.
-    icons: [
-      {
-        src: 'favicon.ico',
-        sizes: '192x192',
-        type: 'image/png'
-      },
-      {
-        src: 'favicon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png'
-      },
-      {
-        src: 'favicon-144x144.png',
-        sizes: '144x144',
-        type: 'image/png'
-      }
-    ]
+    related_applications: [],
+    icons: []
   },
   vendorPaths: [
     require.resolve('razzle/polyfills'),
     require.resolve('react'),
     require.resolve('react-dom'),
     require.resolve('react-router-dom'),
-    require.resolve('redux'),
-    require.resolve('react-redux'),
-    require.resolve('redux-thunk'),
-    require.resolve('isomorphic-fetch'),
-    require.resolve('react-helmet'),
-    require.resolve('serialize-javascript'),
+    // require.resolve('redux'),
+    // require.resolve('react-redux'),
+    // require.resolve('redux-thunk'),
+    // require.resolve('isomorphic-fetch'),
+    // require.resolve('react-helmet'),
+    // require.resolve('serialize-javascript'),
     require.resolve('history')
     // ... add any other vendor packages with require.resolve('xxx')
   ],
@@ -100,24 +74,14 @@ const customConfigs = {
     cssFilePath: 'static/css/[name].[hash].css'
   },
   extensions: {
-    tslintConfig: path.resolve(path.join(__dirname, 'tslint.json')),
+    tslintConfig: path.resolve(path.join(appRoot, 'tslint.json')),
     aliasPaths: {
-      '@assets': path.resolve(
-        path.join(path.resolve(__dirname, 'src'), 'assets')
-      ),
-      '@components': path.resolve(
-        path.join(path.resolve(__dirname, 'src'), 'components')
-      ),
-      '@containers': path.resolve(
-        path.join(path.resolve(__dirname, 'src'), 'containers')
-      ),
-      '@screens': path.resolve(
-        path.join(path.resolve(__dirname, 'src'), 'screens')
-      ),
-      '@services': path.resolve(
-        path.join(path.resolve(__dirname, 'src'), 'services')
-      ),
-      '@src': path.resolve(path.join(path.resolve(__dirname, 'src')))
+      '@assets': path.resolve(path.join(srcRoot, 'assets')),
+      '@components': path.resolve(path.join(path.join(srcRoot, 'components'))),
+      '@containers': path.resolve(path.join(path.join(srcRoot, 'containers'))),
+      '@screens': path.resolve(path.join(path.join(srcRoot, 'screens'))),
+      '@services': path.resolve(path.join(path.join(srcRoot, 'services'))),
+      '@src': path.resolve(path.join(srcRoot))
     },
     styleLint: {
       cssPath: ['src/assets/css/**/*.css']

@@ -1,13 +1,15 @@
-export const imageLoader = () => {
+import * as webpack from 'webpack'
+
+/**
+ *
+ * @param loaderPath
+ */
+export const imageLoader = (loaderPath?: RegExp | undefined): webpack.Rule => {
+  const test = loaderPath || /\.(gif|png|jpe?g)$/i
   return {
-    test: /\.(gif|png|jpe?g|svg)$/i,
+    test,
     use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: 'static/images/[name].[hash:8].[ext]'
-        }
-      },
+      'file-loader',
       {
         loader: 'image-webpack-loader',
         options: {

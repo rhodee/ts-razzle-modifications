@@ -45,6 +45,11 @@ const defaultOfflineConfig = {
   globIgnores: ['**\/sw.js']
 }
 
+/**
+ *
+ * @param offlineConfig
+ * @param manifest
+ */
 const offline = (offlineConfig: OfflineConfig = defaultOfflineConfig, manifest: PWAManifest): webpack.Plugin[] => [
   new WorkboxPlugin(offlineConfig),
   new WebpackPwaManifest(manifest)

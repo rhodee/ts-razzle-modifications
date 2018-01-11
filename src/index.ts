@@ -16,6 +16,8 @@ import {
 import { optimizeAssets } from './plugin/optimization'
 import { defaultConfig } from './defaultConfig'
 
+const rMods = path.resolve(__dirname, '..', 'node_modules')
+
 export declare namespace razzleBuild {
   type PluggableFunc = (prodOnly: boolean) => webpack.Plugin[]
   type Plugins = webpack.Plugin[] | PluggableFunc
@@ -45,6 +47,9 @@ export declare namespace razzleBuild {
         cssPath: string[];
       };
       tslintConfig?: string;
+      loaderPaths?: {
+        [name: string]: string;
+      };
     }
     modernizrConfig: RegExp
     pwaConfig: any
@@ -93,40 +98,12 @@ export function modifyBuilder (
     let customServerPlugins: webpack.Plugin[] = []
     let customClientPlugins: webpack.Plugin[] = []
     let customUniversalPlugins: webpack.Plugin[] = []
+    let babelLoader: number
 
     if (typeof customUniversalPluginHandler === 'function') {
       customUniversalPlugins = customUniversalPluginHandler(dev)
     } else if (Array.isArray(customUniversalPluginHandler)) {
       customUniversalPlugins = customUniversalPluginHandler
-    }
-
-    baseConfig.plugins && baseConfig.plugins.push(...customUniversalPlugins)
-
-    if (isServer(target)) {
-      if (typeof customServerPluginHandler === 'function') {
-        customServerPlugins = customServerPluginHandler(dev)
-      } else if (Array.isArray(customServerPluginHandler)) {
-        customServerPlugins = customServerPluginHandler
-      }
-
-      if (isDev(dev)) {
-        baseConfig.plugins && baseConfig.plugins.push(...customServerPlugins)
-      } else {
-        baseConfig.plugins && baseConfig.plugins.push(...customServerPlugins)
-      }
-    }
-
-    if (!isServer(target)) {
-      if (typeof customClientPluginHandler === 'function') {
-        customClientPlugins = customClientPluginHandler(dev)
-      } else if (Array.isArray(customClientPluginHandler)) {
-        customClientPlugins = customClientPluginHandler
-      }
-      if (isDev(dev)) {
-        baseConfig.plugins && baseConfig.plugins.push(...customClientPlugins)
-      } else {
-        baseConfig.plugins && baseConfig.plugins.push(...customClientPlugins)
-      }
     }
 
     if (!config.module) {
@@ -135,17 +112,7 @@ export function modifyBuilder (
       }
     }
 
-    const aliasPaths =
-      (razzleOptions.extensions && razzleOptions.extensions.aliasPaths) || {}
-
-    config.resolve = {
-      ...coreResolver(config, aliasPaths, supportedExtension)
-    }
-    config.devtool = isDev(dev) ? 'cheap-module-source-map' : 'source-map'
-
-    let babelLoader: number
-
-    if (config.module && config.module.hasOwnProperty('rules')) {
+    if (config.module.hasOwnProperty('rules')) {
       const r = (config.module as webpack.NewModule).rules
       babelLoader = r.findIndex(rule => {
         return rule['options'] && rule['options']['babelrc']
@@ -158,12 +125,39 @@ export function modifyBuilder (
       config.module['rules'] = r
     }
 
+    /**
+     * Set the sourcemap tool.
+     */
+    config.devtool = isDev(dev) ? 'cheap-module-source-map' : 'source-map'
+
+    /**
+     * Insert webpack plugins that are intended for both client and server.
+     */
+    config.plugins && config.plugins.push(...customUniversalPlugins)
+
+    /**
+     * If the razzle builder provides alias paths, support it.
+     */
+    const aliasPaths =
+      (razzleOptions.extensions && razzleOptions.extensions.aliasPaths) || {}
+
+    config.resolve = { ...config.resolve, ...coreResolver(config, aliasPaths, supportedExtension) }
+
+    if (config.resolveLoader) {
+      config.resolveLoader.modules = config.resolveLoader.modules && config.resolveLoader.modules.concat(rMods)
+    }
+
+    /**
+     * CLIENT SIDE CONFIGURATION
+     */
     if (!isServer(target)) {
-      if (config.module && config.module.hasOwnProperty('rules')) {
+      if ((config.module as webpack.NewModule).rules) {
         const r = (config.module as webpack.NewModule).rules
-        r.push(imageLoader())
         r.push(fontLoader())
         r.push(modernizrcLoader(razzleOptions.modernizrConfig))
+        if (!isDev(dev)) {
+          r.push(imageLoader())
+        }
         config.module['rules'] = r
       }
 
@@ -183,28 +177,54 @@ export function modifyBuilder (
       if (config.entry && razzleOptions.vendorPaths) {
         config.entry['vendor'] = razzleOptions.vendorPaths || []
       }
+    }
 
-      if (Array.isArray(config.plugins)) {
-        config.plugins.push(
-          ...stylelintPlugin(stylelintConfig),
-          ...offline(razzleOptions.workboxConfig, razzleOptions.pwaConfig),
-          ...commonPlugins(),
-          ...clientCommonPlugins()
-        )
-      } else {
-        config.plugins = []
-        config.plugins.push(
-          ...stylelintPlugin(stylelintConfig),
-          ...offline(razzleOptions.workboxConfig, razzleOptions.pwaConfig),
-          ...commonPlugins(),
-          ...clientCommonPlugins()
-        )
+    /**
+     * SERVER SIDE CONFIGURATION
+     */
+    if (isServer(target)) {
+      // TBD
+    }
+
+    /**
+     * PLUGINS
+     * Accept webpack.Plugin | (isDev: boolean) => webpack.Plugin
+     * Should be used to provide the right webpack rule for the
+     * given context but switch on the current environment.
+     */
+    const c = (config.plugins && config.plugins) || []
+
+    if (isServer(target)) {
+      if (typeof customServerPluginHandler === 'function') {
+        customServerPlugins = customServerPluginHandler(dev)
+      } else if (Array.isArray(customServerPluginHandler)) {
+        customServerPlugins = customServerPluginHandler
       }
+
+      c.push(...customServerPlugins)
+    }
+
+    if (!isServer(target)) {
+      if (typeof customClientPluginHandler === 'function') {
+        customClientPlugins = customClientPluginHandler(dev)
+      } else if (Array.isArray(customClientPluginHandler)) {
+        customClientPlugins = customClientPluginHandler
+      }
+
+      c.push(
+        ...stylelintPlugin(stylelintConfig),
+        ...offline(razzleOptions.workboxConfig, razzleOptions.pwaConfig),
+        ...commonPlugins(),
+        ...clientCommonPlugins(),
+        ...customClientPlugins
+      )
 
       if (!isDev(dev)) {
-        config.plugins.push(...optimizeAssets())
+        c.push(...optimizeAssets())
       }
     }
+
+    config.plugins = c
 
     return config
   }
