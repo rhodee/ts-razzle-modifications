@@ -17,6 +17,10 @@
     "@types/react-router": "^4.0.17",
     "@types/webpack": "^3.8.1",
     "@types/webpack-env": "^1.13.3",
+    "stylelint": "^8.3.0",
+    "stylelint-webpack-plugin": "^0.9.0",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.5.3",
     "ts-razzle-modifications": "file:../"
   },
   "dependencies": {

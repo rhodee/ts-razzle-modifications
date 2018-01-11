@@ -2,13 +2,14 @@ import * as path from 'path'
 import * as webpack from 'webpack'
 import { isDev, isServer } from './utils'
 import { coreResolver } from './resolve'
-import { tslintLoader, tsLoader } from './loader/typescript'
+import { tsLoader } from './loader/typescript'
 import { sourcemapLoader } from './loader/sourcemap'
 import { modernizrcLoader } from './loader/modernizr'
 import { imageLoader } from './loader/image'
 import { fontLoader } from './loader/font'
-import { stylelintPlugin } from './plugin/stylelint'
 import { offline } from './plugin/offline'
+import { pwa } from './plugin/pwa'
+
 import {
   common as commonPlugins,
   client as clientCommonPlugins
@@ -43,13 +44,7 @@ export declare namespace razzleBuild {
         server?: razzleBuild.Plugins;
         universal?: razzleBuild.Plugins;
       };
-      styleLint?: {
-        cssPath: string[];
-      };
-      tslintConfig?: string;
-      loaderPaths?: {
-        [name: string]: string;
-      };
+      loaders?: webpack.Loader[];
     }
     modernizrConfig: RegExp
     pwaConfig: any
@@ -69,14 +64,8 @@ export function modifyBuilder (
   ) => {
     const config = baseConfig
     const supportedExtension = ['.ts', '.tsx', '.css']
-    const slFiles =
-      razzleOptions.extensions &&
-      razzleOptions.extensions.styleLint &&
-      razzleOptions.extensions.styleLint.cssPath
-    const stylelintConfig = {
-      context: path.resolve(razzleOptions.appRoot),
-      files: slFiles || []
-    }
+    const loaders =
+      (razzleOptions.extensions && razzleOptions.extensions.loaders) || []
 
     /**
      * Add user specified additional plugins customized by
@@ -112,6 +101,14 @@ export function modifyBuilder (
       }
     }
 
+    /**
+     * TODO (dr): determine why the webpack rule does not behave as expected.
+     * when passing a loader.
+     */
+    (config.module as any).rules = (config.module as any).rules.concat(
+      ...loaders
+    )
+
     const r = (config.module as webpack.NewModule).rules
     r.push(imageLoader())
     r.push(fontLoader())
@@ -122,9 +119,6 @@ export function modifyBuilder (
 
     r[babelLoader] = tsLoader(config)
     r.push(sourcemapLoader())
-    if (razzleOptions.extensions && razzleOptions.extensions.tslintConfig) {
-      r.push(tslintLoader(config, razzleOptions.extensions.tslintConfig))
-    }
 
     /**
      * Set the sourcemap tool.
@@ -189,7 +183,7 @@ export function modifyBuilder (
      */
     const c = (config.plugins && config.plugins) || []
 
-    if (!isDev(dev)) {
+    if (!isDev(dev) && !isServer(target)) {
       c.push(...optimizeAssets())
     }
 
@@ -201,25 +195,34 @@ export function modifyBuilder (
       }
 
       c.push(...customServerPlugins)
+      config.plugins = c
     }
 
     if (!isServer(target)) {
+      const wbcPlugin = razzleOptions.workboxConfig
+        ? offline(razzleOptions.workboxConfig)
+        : []
+      const pwaPlugin = razzleOptions.pwaConfig
+        ? pwa(razzleOptions.pwaConfig)
+        : []
+
       if (typeof customClientPluginHandler === 'function') {
         customClientPlugins = customClientPluginHandler(dev)
       } else if (Array.isArray(customClientPluginHandler)) {
         customClientPlugins = customClientPluginHandler
       }
 
+      c.push(...customClientPlugins)
+
       c.push(
-        ...stylelintPlugin(stylelintConfig),
-        ...offline(razzleOptions.workboxConfig, razzleOptions.pwaConfig),
         ...commonPlugins(),
         ...clientCommonPlugins(),
-        ...customClientPlugins
+        ...customClientPlugins,
+        ...pwaPlugin,
+        ...wbcPlugin
       )
+      config.plugins = c
     }
-
-    config.plugins = c
 
     return config
   }

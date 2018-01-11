@@ -1,7 +1,8 @@
 const modifyBuilder = require('ts-razzle-modifications').modifyBuilder
 const webpack = require('webpack')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 const path = require('path')
-const appRoot = path.resolve(path.join(__dirname))
+const appRoot = path.resolve(__dirname)
 const srcRoot = path.join(appRoot, 'src')
 
 const customConfigs = {
@@ -41,7 +42,6 @@ const customConfigs = {
     cssFilePath: 'static/css/[name].[hash].css'
   },
   extensions: {
-    tslintConfig: path.resolve(path.join(appRoot, 'tslint.json')),
     aliasPaths: {
       '@assets': path.resolve(path.join(srcRoot, 'assets')),
       '@components': path.resolve(path.join(path.join(srcRoot, 'components'))),
@@ -50,9 +50,17 @@ const customConfigs = {
       '@services': path.resolve(path.join(path.join(srcRoot, 'services'))),
       '@src': path.resolve(path.join(srcRoot))
     },
-    styleLint: {
-      cssPath: ['src/assets/css/**/*.css']
-    },
+    loaders: [
+      {
+        enforce: 'pre',
+        test: /\.tsx?$/,
+        loader: 'tslint-loader',
+        options: {
+          emitErrors: true,
+          configFile: path.join(appRoot, 'tslint.json')
+        }
+      }
+    ],
     plugins: {
       server: [
         new webpack.BannerPlugin({
@@ -61,7 +69,12 @@ const customConfigs = {
           entryOnly: false
         })
       ],
-      client: [],
+      client: [
+        new StyleLintPlugin({
+          context: appRoot,
+          files: ['src/assets/css/**/*.css']
+        })
+      ],
       universal: []
     }
   }

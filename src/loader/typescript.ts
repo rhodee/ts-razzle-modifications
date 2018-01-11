@@ -16,21 +16,3 @@ export const tsLoader = (config: webpack.Configuration): any => {
     loader: 'ts-loader'
   }
 }
-
-/**
- *
- * @param config
- * @param configFilePath
- */
-export const tslintLoader = (_config: webpack.Configuration, configFilePath: string): any => {
-
-  return {
-    enforce: 'pre',
-    test: /\.tsx?$/,
-    loader: 'tslint-loader',
-    options: {
-      emitErrors: true,
-      configFile: configFilePath
-    }
-  }
-}

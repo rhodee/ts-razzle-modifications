@@ -101,6 +101,7 @@
     "tslint-config-shopify": "^3.0.1",
     "tslint-config-standard": "^7.0.0",
     "tslint-consistent-codestyle": "^1.9.2",
+    "tslint": "^5.5.0",
     "typescript": "2.6.2"
   },
   "peerDependencies": {
@@ -120,12 +121,8 @@
     "modernizr-loader": "^1.0.1",
     "pwa-manifest-webpack-plugin": "^1.0.5",
     "source-map-loader": "^0.2.0",
-    "stylelint": "^8.3.0",
-    "stylelint-webpack-plugin": "^0.9.0",
     "ts-jest": "^21.2.4",
     "ts-loader": "^3.2.0",
-    "tslint": "^5.5.0",
-    "tslint-loader": "^3.5.0",
     "webpack": "^3.10.0",
     "workbox-sw": "^2.1.1",
     "workbox-webpack-plugin": "^2.1.2"

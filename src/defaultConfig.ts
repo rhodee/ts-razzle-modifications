@@ -13,9 +13,8 @@ const defaultConfig: razzleBuild.Configuration = {
     cssFilePath: 'static/css/[name].[hash].css'
   },
   extensions: {
-    tslintConfig: undefined,
     aliasPaths: undefined,
-    styleLint: undefined,
+    loaders: undefined,
     plugins: {
       server: [],
       client: [],
