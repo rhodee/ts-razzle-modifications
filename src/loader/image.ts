@@ -9,7 +9,7 @@ export const imageLoader = (loaderPath?: RegExp | undefined): webpack.Rule => {
   return {
     test,
     use: [
-      'file-loader',
+      'url-loader',
       {
         loader: 'image-webpack-loader',
         options: {

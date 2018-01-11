@@ -10,8 +10,8 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Read more about [razzle](https://github.com/jaredpalmer/razzle#extending-babel-config).
-Read more about [structuring your React Application](https://www.rhodee.us) to maximize this configuration.
+Read more about [razzle](https://github.com/jaredpalmer/razzle).
+Check out the [example](./examples) to utilize this configuration.
 
 ## Features
 

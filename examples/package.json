@@ -1,0 +1,31 @@
+{
+  "name": "my-razzle-app",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "razzle start",
+    "build": "razzle build",
+    "test": "razzle test --env=jsdom",
+    "start:prod": "NODE_ENV=production node build/server.js"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.39",
+    "@types/history": "^4.5.0",
+    "@types/jest": "^22.0.1",
+    "@types/react": "^16.0.22",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-router": "^4.0.17",
+    "@types/webpack": "^3.8.1",
+    "@types/webpack-env": "^1.13.3",
+    "ts-razzle-modifications": "file:../"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "raf": "^3.4.0",
+    "razzle": "^0.8.7",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "source-map-support": "0.5.0"
+  }
+}

@@ -112,23 +112,24 @@ export function modifyBuilder (
       }
     }
 
-    if (config.module.hasOwnProperty('rules')) {
-      const r = (config.module as webpack.NewModule).rules
-      babelLoader = r.findIndex(rule => {
-        return rule['options'] && rule['options']['babelrc']
-      })
-      r[babelLoader] = tsLoader(config)
-      r.push(sourcemapLoader())
-      if (razzleOptions.extensions && razzleOptions.extensions.tslintConfig) {
-        r.push(tslintLoader(config, razzleOptions.extensions.tslintConfig))
-      }
-      config.module['rules'] = r
+    const r = (config.module as webpack.NewModule).rules
+    r.push(imageLoader())
+    r.push(fontLoader())
+
+    babelLoader = r.findIndex(rule => {
+      return rule['options'] && rule['options']['babelrc']
+    })
+
+    r[babelLoader] = tsLoader(config)
+    r.push(sourcemapLoader())
+    if (razzleOptions.extensions && razzleOptions.extensions.tslintConfig) {
+      r.push(tslintLoader(config, razzleOptions.extensions.tslintConfig))
     }
 
     /**
      * Set the sourcemap tool.
      */
-    config.devtool = isDev(dev) ? 'cheap-module-source-map' : 'source-map'
+    config.devtool = isDev(dev) ? config.devtool : 'source-map'
 
     /**
      * Insert webpack plugins that are intended for both client and server.
@@ -141,10 +142,15 @@ export function modifyBuilder (
     const aliasPaths =
       (razzleOptions.extensions && razzleOptions.extensions.aliasPaths) || {}
 
-    config.resolve = { ...config.resolve, ...coreResolver(config, aliasPaths, supportedExtension) }
+    config.resolve = {
+      ...config.resolve,
+      ...coreResolver(config, aliasPaths, supportedExtension)
+    }
 
     if (config.resolveLoader) {
-      config.resolveLoader.modules = config.resolveLoader.modules && config.resolveLoader.modules.concat(rMods)
+      config.resolveLoader.modules =
+        config.resolveLoader.modules &&
+        config.resolveLoader.modules.concat(rMods)
     }
 
     /**
@@ -152,23 +158,10 @@ export function modifyBuilder (
      */
     if (!isServer(target)) {
       if ((config.module as webpack.NewModule).rules) {
-        const r = (config.module as webpack.NewModule).rules
-        r.push(fontLoader())
         r.push(modernizrcLoader(razzleOptions.modernizrConfig))
-        if (!isDev(dev)) {
-          r.push(imageLoader())
-        }
-        config.module['rules'] = r
-      }
-
-      // Set the output path for client-side JS
-      if (config.output) {
-        config.output.filename = isDev(dev)
-          ? 'static/js/[name].js'
-          : 'static/js/[name].[hash:8].js'
-      } else {
-        config.output = {
-          filename: isDev(dev)
+        // Set the output path for client-side JS
+        if (config.output) {
+          config.output.filename = isDev(dev)
             ? 'static/js/[name].js'
             : 'static/js/[name].[hash:8].js'
         }
@@ -186,6 +179,8 @@ export function modifyBuilder (
       // TBD
     }
 
+    config.module['rules'] = r
+
     /**
      * PLUGINS
      * Accept webpack.Plugin | (isDev: boolean) => webpack.Plugin
@@ -193,6 +188,10 @@ export function modifyBuilder (
      * given context but switch on the current environment.
      */
     const c = (config.plugins && config.plugins) || []
+
+    if (!isDev(dev)) {
+      c.push(...optimizeAssets())
+    }
 
     if (isServer(target)) {
       if (typeof customServerPluginHandler === 'function') {
@@ -218,10 +217,6 @@ export function modifyBuilder (
         ...clientCommonPlugins(),
         ...customClientPlugins
       )
-
-      if (!isDev(dev)) {
-        c.push(...optimizeAssets())
-      }
     }
 
     config.plugins = c

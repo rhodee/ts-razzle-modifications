@@ -1,2 +1,6 @@
+examples/package-*
+**/public/*
+!**/public/robots.txt
+!**/public/favicon.ico
 node_modules
 dist

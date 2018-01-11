@@ -5,7 +5,6 @@ import * as CircularDependencyPlugin from 'circular-dependency-plugin'
 import chunks from './chunks'
 
 export const common = (): webpack.Plugin[] => [
-  new webpack.NamedModulesPlugin(),
   new CaseSensitivePathsPlugin(),
   new CircularDependencyPlugin({
     // exclude detection of files based on a RegExp
@@ -17,9 +16,7 @@ export const common = (): webpack.Plugin[] => [
   })
 ]
 
-export const node = (): webpack.Plugin[] => [
-
-]
+export const node = (): webpack.Plugin[] => []
 
 export const client = (): webpack.Plugin[] => [
   ...chunks()

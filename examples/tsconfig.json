@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "dist",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@containers/*": ["src/containers/*"],
+      "@screens/*": ["src/screens/*"],
+      "@services/*": ["src/services/*"],
+      "@src/*": ["src/*"]
+    },
     "target": "es5",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,
-    "lib": ["es6", "es2015", "es2017"],
+    "jsx": "react",
+    "lib": ["es6", "es2015", "es2017", "dom", "esnext.asynciterable"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -26,8 +32,21 @@
     "stripInternal": true,
     "allowJs": false,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [ "node_modules/@types" ]
+    "typeRoots": [
+      "node_modules/@types",
+      "@types"
+    ]
   },
-  "exclude": [ "examples", "node_modules", "dist", "jest" ],
+  "exclude": [
+    "**/*.test.*",
+    "prod_node_modules",
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "razzle.config.js"
+  ],
   "types": ["typePatches", "node", "webpack-env"]
 }
