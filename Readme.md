@@ -27,19 +27,20 @@ Check out the [example](./examples) to utilize this configuration.
 // razzle.config.js
 const modifyBuilder = require('ts-razzle-modifications').modifyBuilder
 const webpack = require('webpack')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 const path = require('path')
-const appRoot = path.resolve(__dirname)
-const srcRoot = path.join(appRoot, 'src')
+const appRoot = '.'
+const srcRoot = path.resolve(__dirname, 'src')
 
 const customConfigs = {
   appRoot,
   srcRoot,
   modernizrConfig: /\.modernizrrc$/,
   workboxConfig: {
-    globDirectory: path.join(path.resolve(__dirname), 'build'),
+    globDirectory: 'build',
     globPatterns: ['**/*.{js,css,svg,html}'],
     globIgnores: ['**\/sw.js'],
-    swDest: path.join(path.resolve(__dirname), 'public/sw.js'),
+    swDest: 'build/public/sw.js',
     clientsClaim: true,
     skipWaiting: true
   },
@@ -53,28 +54,38 @@ const customConfigs = {
     theme_color: '#ffffff',
     background_color: '#ffffff',
     related_applications: [],
-    icons: []
+    // These go in public. At least 512 if you want to pass Lighthouse testng.
+    icons: [
+      // {
+      //   "src": "favicon.ico",
+      //   "sizes": "192x192",
+      //   "type": "image/png"
+      // },
+      // {
+      //   "src": "android-chrome-192x192.png",
+      //   "sizes": "192x192",
+      //   "type": "image/png"
+      // },
+      // {
+      //     "src": "android-chrome-512x512.png",
+      //     "sizes": "512x512",
+      //     "type": "image/png"
+      // },
+      // {
+      //   "src": "favicon-144x144.png",
+      //   "sizes": "144x144",
+      //   "type": "image/png"
+      // }
+    ]
   },
   vendorPaths: [
     require.resolve('razzle/polyfills'),
     require.resolve('react'),
     require.resolve('react-dom'),
-    require.resolve('react-router-dom'),
-    // require.resolve('redux'),
-    // require.resolve('react-redux'),
-    // require.resolve('redux-thunk'),
-    // require.resolve('isomorphic-fetch'),
-    // require.resolve('react-helmet'),
-    // require.resolve('serialize-javascript'),
-    require.resolve('history')
+    require.resolve('react-router-dom')
     // ... add any other vendor packages with require.resolve('xxx')
   ],
-  cssModules: {
-    moduleIdentifer: 'localIdentName=[name]__[local]___[hash:base64:5]',
-    cssFilePath: 'static/css/[name].[hash].css'
-  },
   extensions: {
-    tslintConfig: path.resolve(path.join(appRoot, 'tslint.json')),
     aliasPaths: {
       '@assets': path.resolve(path.join(srcRoot, 'assets')),
       '@components': path.resolve(path.join(path.join(srcRoot, 'components'))),
@@ -83,9 +94,7 @@ const customConfigs = {
       '@services': path.resolve(path.join(path.join(srcRoot, 'services'))),
       '@src': path.resolve(path.join(srcRoot))
     },
-    styleLint: {
-      cssPath: ['src/assets/css/**/*.css']
-    },
+    loaders: [],
     plugins: {
       server: [
         new webpack.BannerPlugin({
@@ -94,7 +103,12 @@ const customConfigs = {
           entryOnly: false
         })
       ],
-      client: [],
+      client: [
+        new StyleLintPlugin({
+          context: appRoot,
+          files: ['src/assets/css/**/*.css']
+        })
+      ],
       universal: []
     }
   }
