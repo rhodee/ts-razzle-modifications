@@ -1,13 +1,13 @@
 import * as webpack from 'webpack'
 import * as autoprefixer from 'autoprefixer'
-import { scssPlugin } from '../plugin/css'
+import { cssPlugin } from '../plugin/css'
 
 /**
  *
  * @param config
  * @param isDev
  */
-export const cssLoader = (config: webpack.Configuration, isDev: boolean): any => {
+export const cssLoader = (_config: webpack.Configuration, isDev: boolean): any => {
   if (isDev) {
     return {
       test: /.scss$/,
@@ -43,7 +43,7 @@ export const cssLoader = (config: webpack.Configuration, isDev: boolean): any =>
 
   return {
     test: /.scss$/,
-    use: scssPlugin.extract({
+    use: cssPlugin.extract({
       fallback: 'style-loader',
       use: [
         {
