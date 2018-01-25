@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.0.8...v0.1.0) (2018-01-25)
+
+
+### Bug Fixes
+
+* **reference:** Fix scss reference. ([3b7b299](https://github.com/rhodee/ts-razzle-modificaions/commit/3b7b299))
+* **tooling:** Removed unused devtool. ([27f6d1d](https://github.com/rhodee/ts-razzle-modificaions/commit/27f6d1d))
+
+
+### Features
+
+* **dx:** Improved DX Experience. ([51c8fd0](https://github.com/rhodee/ts-razzle-modificaions/commit/51c8fd0))
+* **scss:** Add support for SCSS ([e9bf5fb](https://github.com/rhodee/ts-razzle-modificaions/commit/e9bf5fb))
+
+
+
 <a name="0.0.8"></a>
 ## [0.0.8](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.0.7...v0.0.8) (2018-01-11)
 
