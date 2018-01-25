@@ -119,7 +119,7 @@ export function modifyBuilder (
       return rule['options'] && rule['options']['babelrc']
     })
 
-    r[babelLoader] = tsLoader(config)
+    r[babelLoader] = tsLoader(config, dev)
     r.push(sourcemapLoader())
     r.push(cssLoader(config, dev))
     /**

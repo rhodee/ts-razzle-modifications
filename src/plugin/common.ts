@@ -1,6 +1,7 @@
 import * as webpack from 'webpack'
 import * as CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import * as CircularDependencyPlugin from 'circular-dependency-plugin'
+import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import chunks from './chunks'
 
@@ -19,5 +20,12 @@ export const common = (): webpack.Plugin[] => [
 export const node = (): webpack.Plugin[] => []
 
 export const client = (): webpack.Plugin[] => [
-  ...chunks()
+  ...chunks(),
+  new ForkTsCheckerWebpackPlugin({
+    checkSyntacticErrors: true,
+    formatter: 'codeframe',
+    tslint: './tslint.json',
+    watch: './src',
+    workers: 2
+  })
 ]
