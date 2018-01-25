@@ -20,6 +20,7 @@ Check out the [example](./examples) to utilize this configuration.
 - Progressive Web App
 - File compression optimizations (Brotli, GZIP)
 - Stylelint
+- SCSS support
 
 ## Usage
 

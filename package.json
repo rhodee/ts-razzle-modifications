@@ -110,6 +110,7 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "autoprefixer": "^7.2.5",
     "babel-minify-webpack-plugin": "^0.2.0",
     "base64-font-loader": "^0.0.4",
     "brotli-webpack-plugin": "^0.5.0",
@@ -120,6 +121,7 @@
     "modernizr": "^3.5.0",
     "modernizr-loader": "^1.0.1",
     "pwa-manifest-webpack-plugin": "^1.0.5",
+    "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.0",
     "ts-jest": "^21.2.4",
     "ts-loader": "^3.2.0",

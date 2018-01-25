@@ -7,6 +7,8 @@ import { sourcemapLoader } from './loader/sourcemap'
 import { modernizrcLoader } from './loader/modernizr'
 import { imageLoader } from './loader/image'
 import { fontLoader } from './loader/font'
+import { cssLoader } from './loader/css'
+import { cssPlugin } from './plugin/css'
 import { offline } from './plugin/offline'
 import { pwa } from './plugin/pwa'
 
@@ -63,7 +65,7 @@ export function modifyBuilder (
     _webpackConfig: webpack.Compiler
   ) => {
     const config = baseConfig
-    const supportedExtension = ['.ts', '.tsx', '.css']
+    const supportedExtension = ['.ts', '.tsx', '.css', '.scss']
     const loaders =
       (razzleOptions.extensions && razzleOptions.extensions.loaders) || []
 
@@ -119,7 +121,7 @@ export function modifyBuilder (
 
     r[babelLoader] = tsLoader(config)
     r.push(sourcemapLoader())
-
+    r.push(cssLoader(config, dev))
     /**
      * Set the sourcemap tool.
      */
@@ -170,7 +172,9 @@ export function modifyBuilder (
      * SERVER SIDE CONFIGURATION
      */
     if (isServer(target)) {
-      // TBD
+      if ((config.module as webpack.NewModule).rules) {
+        r.push({ test: /.scss$/, use: 'css-loader' })
+      }
     }
 
     config.module['rules'] = r
@@ -184,7 +188,7 @@ export function modifyBuilder (
     const c = (config.plugins && config.plugins) || []
 
     if (!isDev(dev) && !isServer(target)) {
-      c.push(...optimizeAssets())
+      c.push(...optimizeAssets(), cssPlugin)
     }
 
     if (isServer(target)) {
