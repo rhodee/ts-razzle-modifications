@@ -95,7 +95,12 @@ const customConfigs = {
       '@services': path.resolve(path.join(path.join(srcRoot, 'services'))),
       '@src': path.resolve(path.join(srcRoot))
     },
-    loaders: [],
+    loaders: [
+      {
+        test: /\.(woff|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['base64-font-loader']
+      }
+    ],
     plugins: {
       server: [
         new webpack.BannerPlugin({

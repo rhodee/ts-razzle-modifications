@@ -5,8 +5,6 @@ import { coreResolver } from './resolve'
 import { tsLoader } from './loader/typescript'
 import { sourcemapLoader } from './loader/sourcemap'
 import { modernizrcLoader } from './loader/modernizr'
-import { imageLoader } from './loader/image'
-import { fontLoader } from './loader/font'
 import { cssLoader } from './loader/css'
 import { cssPlugin } from './plugin/css'
 import { offline } from './plugin/offline'
@@ -112,9 +110,6 @@ export function modifyBuilder (
     )
 
     const r = (config.module as webpack.NewModule).rules
-    r.push(imageLoader())
-    r.push(fontLoader())
-
     babelLoader = r.findIndex(rule => {
       return rule['options'] && rule['options']['babelrc']
     })
