@@ -1,13 +1,13 @@
-import * as webpack from 'webpack'
-
 /**
  *
  * @param loaderPath
  */
-export const sourcemapLoader = (loaderPath?: RegExp | undefined): webpack.Rule => {
-  const test = loaderPath || /\.js$/
+export const sourcemapLoader = (loaderPath?: RegExp | undefined): any => {
+  const test = loaderPath || /\.tsx?$/
   return {
+    enforce: 'pre',
     test,
-    use: ['source-map-loader']
+    loader: 'source-map-loader',
+    exclude: [/node_modules/, /build/, /__tests__/, /__test__/]
   }
 }
