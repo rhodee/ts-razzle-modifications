@@ -10,12 +10,7 @@ const customConfigs = {
   srcRoot,
   modernizrConfig: /\.modernizrrc$/,
   workboxConfig: {
-    globDirectory: 'build',
-    globPatterns: ['**/*.{js,css,svg,html}'],
-    globIgnores: ['**\/sw.js'],
-    swDest: 'build/public/sw.js',
-    clientsClaim: true,
-    skipWaiting: true
+    swDest: 'sw.js',
   },
   pwaConfig: {
     name: 'React App',

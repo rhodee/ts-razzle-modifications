@@ -13,7 +13,11 @@
   },
   "author": "Denis Rhoden <info@rhodee.us>",
   "main": "dist/index.js",
+  "module": "dist/index.es6.js",
   "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "contributors": [
     {
       "name": "Denis Rhoden",
@@ -29,6 +33,7 @@
   "scripts": {
     "build:ts": "tsc",
     "build": "run-p --aggregate-output build:ts",
+    "build:rollup": "NODE_ENV=production rollup -c",
     "clean:artifacts": "del 'dist/*'",
     "clean": "run-p clean:artifacts",
     "contributors:add": "all-contributors add",
@@ -56,9 +61,9 @@
     "test": "Run test suite"
   },
   "lint-staged": {
-    "src/*.{ts,tsx}": [
-      "prettier",
-      "lint",
+    "**/src/*.{ts,tsx}": [
+      "prettier --trailing-comma none --single-quote --write",
+      "tslint --fix",
       "git add"
     ]
   },
@@ -91,9 +96,18 @@
     "lint-staged": "6.0.0",
     "npm-run-all": "^4.1.2",
     "npm-scripts-info": "^0.3.6",
-    "prettier": "^1.7.0",
+    "prettier": "^1.11.1",
     "razzle": "^0.8.7",
     "rimraf": "^2.6.2",
+    "rollup": "^0.58.1",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-typescript2": "^0.13.0",
+    "rollup-plugin-uglify": "^3.0.0",
     "source-map-support": "^0.5.0",
     "standard-version": "^4.2.0",
     "tslint": "^5.5.0",
@@ -101,7 +115,7 @@
     "tslint-config-shopify": "^3.0.1",
     "tslint-config-standard": "^7.0.0",
     "tslint-consistent-codestyle": "^1.9.2",
-    "typescript": "2.6.2"
+    "typescript": "^2.7.2"
   },
   "peerDependencies": {
     "razzle": "^0.8.7",
@@ -131,7 +145,7 @@
     "ts-loader": "^3.2.0",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.2",
-    "workbox-sw": "^2.1.1",
-    "workbox-webpack-plugin": "^2.1.2"
+    "workbox-sw": "3.1.0",
+    "workbox-webpack-plugin": "3.1.0"
   }
 }

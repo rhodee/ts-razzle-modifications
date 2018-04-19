@@ -1,6 +1,8 @@
 examples/package-*
+examples/.cache-*
 **/public/*
 !**/public/robots.txt
 !**/public/favicon.ico
 node_modules
 dist
+.rpt2_cache
