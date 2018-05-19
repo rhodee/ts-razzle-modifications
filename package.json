@@ -41,7 +41,7 @@
     "docs:doctoc": "doctoc Readme.md CONTRIBUTING.md",
     "docs:readme": "run-p contributors:generate docs:doctoc",
     "docs": "run-s docs:readme",
-    "format": "prettier --trailing-comma none --single-quote --write 'src/**/*' '__tests__/**/*'",
+    "format": "prettier --single-quote --write 'src/**/*' '__tests__/**/*'",
     "info": "npm-scripts-info",
     "lint-staged": "lint-staged",
     "lint": "tslint --fix",
@@ -62,7 +62,7 @@
   },
   "lint-staged": {
     "**/src/*.{ts,tsx}": [
-      "prettier --trailing-comma none --single-quote --write",
+      "prettier --single-quote --write",
       "tslint --fix",
       "git add"
     ]

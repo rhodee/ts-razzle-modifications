@@ -67,6 +67,10 @@ export function modifyBuilder (
     const loaders =
       (razzleOptions.extensions && razzleOptions.extensions.loaders) || []
 
+    // https://github.com/jaredpalmer/razzle/issues/412
+    if (target === 'node' && config && config.output) {
+      config.output.publicPath = `${process.env.PUBLIC_PATH}`
+    }
     /**
      * Add user specified additional plugins customized by
      * target and environment.
