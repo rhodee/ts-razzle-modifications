@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.0...v0.2.1) (2018-05-19)
+
+
+### Features
+
+* **publicPath:** Ensure publicPath is honored when found in ([a9189cc](https://github.com/rhodee/ts-razzle-modificaions/commit/a9189cc))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.1.2...v0.2.0) (2018-04-19)
 
