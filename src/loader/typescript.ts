@@ -15,16 +15,10 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean): any => 
     test: /\.tsx?$/,
     use: [
       isDev && { loader: 'cache-loader' },
-      isDev && {
-        loader: 'thread-loader',
-        options: {
-          // there should be 1 cpu for the fork-ts-checker-webpack-plugin
-          workers: 2
-        }
-      },
       {
         loader: 'ts-loader',
         options: {
+          transpileOnly: true ,
           happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
         }
       }

@@ -21,11 +21,5 @@ export const node = (): webpack.Plugin[] => []
 
 export const client = (): webpack.Plugin[] => [
   ...chunks(),
-  new ForkTsCheckerWebpackPlugin({
-    checkSyntacticErrors: true,
-    formatter: 'codeframe',
-    tslint: './tslint.json',
-    watch: './src',
-    workers: 2
-  })
+  new ForkTsCheckerWebpackPlugin()
 ]
