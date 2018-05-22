@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.3...v0.2.4) (2018-05-22)
+
+
+### Bug Fixes
+
+* **deps:** Move webpack to a peer dep. ([55f390d](https://github.com/rhodee/ts-razzle-modificaions/commit/55f390d))
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.2...v0.2.3) (2018-05-22)
 
