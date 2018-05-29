@@ -18,7 +18,7 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean): any => 
       {
         loader: 'ts-loader',
         options: {
-          transpileOnly: true ,
+          transpileOnly: true,
           happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
         }
       }

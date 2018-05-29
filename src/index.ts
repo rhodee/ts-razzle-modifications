@@ -71,6 +71,14 @@ export function modifyBuilder (
     if (target === 'node' && config && config.output) {
       config.output.publicPath = `${process.env.PUBLIC_PATH}`
     }
+    // const oldOut = config.output && config.output
+
+    // if (oldOut) {
+    //   config.output = { pathinfo: false, ...oldOut }
+    // } else if (!oldOut) {
+    //   config.output = { pathinfo: false }
+    // }
+
     /**
      * Add user specified additional plugins customized by
      * target and environment.
