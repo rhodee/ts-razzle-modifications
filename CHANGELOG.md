@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.4...v0.2.5) (2018-05-29)
+
+
+### Bug Fixes
+
+* **typescript:** Reduce the TS loader opts to transpileOnly ([9be4c6b](https://github.com/rhodee/ts-razzle-modificaions/commit/9be4c6b))
+
+
+
 <a name="0.2.4"></a>
 ## [0.2.4](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.3...v0.2.4) (2018-05-22)
 
