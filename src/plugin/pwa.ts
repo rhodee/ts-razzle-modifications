@@ -1,11 +1,5 @@
 import * as webpack from 'webpack'
-import * as WebpackPwaManifest from 'pwa-manifest-webpack-plugin'
-
-export interface PWAIcon {
-  src: string
-  sizes: string
-  type: string
-}
+import * as WebpackPwaManifest from 'webpack-pwa-manifest'
 
 export interface PWARelatedApplication {
   platform: string
@@ -15,21 +9,25 @@ export interface PWARelatedApplication {
 
 export interface PWAManifest {
   name: string
-  short_name?: string
-  orientation: 'portrait'
-  display: 'fullscreen' | 'standalone'
-  description: string
+  short_name: string
   start_url: string
+  orientation: 'portrait' | 'landscape'
+  display: 'fullscreen' | 'standalone'
+  publicPath?: string
+  fingerprints?: boolean
+  ios?: boolean
+  includeDirectory?: boolean
+  description: string
   theme_color: string
   background_color: string
   related_applications?: PWARelatedApplication[]
-  icons?: PWAIcon[]
+  icons?: WebpackPwaManifest.Icon[]
 }
 
 /**
  *
  * @param manifest
  */
-const pwa = (manifest: PWAManifest): webpack.Plugin[] => [ new WebpackPwaManifest(manifest) ]
+const pwa = (manifest: PWAManifest): webpack.Plugin[] => [new WebpackPwaManifest(manifest)]
 
 export { pwa }
