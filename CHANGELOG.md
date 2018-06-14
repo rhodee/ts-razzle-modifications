@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.6...v0.3.0) (2018-06-14)
+
+
+### Features
+
+* **loaders:** Support pre 2.x gradual Babel + TS loading ([fae58fb](https://github.com/rhodee/ts-razzle-modificaions/commit/fae58fb))
+
+
+
 <a name="0.2.6"></a>
 ## [0.2.6](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.2.5...v0.2.6) (2018-06-06)
 
