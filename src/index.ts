@@ -33,6 +33,7 @@ export declare namespace razzleBuild {
 
   interface Configuration {
     appRoot: string
+    overrideTSLoader?: boolean
     cssModules?: {
       cssFilePath: string;
       moduleIdentifer: string;
@@ -126,7 +127,15 @@ export function modifyBuilder (
       return rule['options'] && rule['options']['babelrc']
     })
 
-    r[babelLoader] = tsLoader(config, dev)
+    /**
+     * This *should* enable use of both TS and babel
+     */
+    if (razzleOptions.overrideTSLoader) {
+      r.push(tsLoader(config, dev))
+    } else {
+      r[babelLoader] = tsLoader(config, dev)
+    }
+
     r.push(sourcemapLoader())
     r.push(cssLoader(config, dev))
     /**

@@ -79,6 +79,7 @@ const customConfigs = {
       // }
     ]
   },
+  overrideoverrideTSLoader: false, // This is the default, turn this on for both Babel + TS support.
   vendorPaths: [
     require.resolve('razzle/polyfills'),
     require.resolve('react'),
