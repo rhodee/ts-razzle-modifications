@@ -64,7 +64,7 @@ export function modifyBuilder (
     _webpackConfig: webpack.Compiler
   ) => {
     const config = baseConfig
-    const supportedExtension = ['.ts', '.tsx', '.css', '.scss']
+    const supportedExtension = ['.ts', '.tsx', '.js', '.jsx', '.css', '.scss']
     const loaders =
       (razzleOptions.extensions && razzleOptions.extensions.loaders) || []
 
@@ -131,6 +131,7 @@ export function modifyBuilder (
      * This *should* enable use of both TS and babel
      */
     if (razzleOptions.overrideTSLoader) {
+      delete razzleOptions.overrideTSLoader
       r.push(tsLoader(config, dev))
     } else {
       r[babelLoader] = tsLoader(config, dev)

@@ -16,7 +16,7 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean): any => 
     use: [
       isDev && { loader: 'cache-loader' },
       {
-        loader: 'ts-loader',
+        loader: require.resolve('ts-loader'),
         options: {
           transpileOnly: true,
           happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
