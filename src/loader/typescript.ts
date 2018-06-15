@@ -16,7 +16,7 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
     use: [
       isDev && { loader: require.resolve('cache-loader') },
       blendJS && {
-        loader: require.resolve('babel-loader')
+        loader: require.resolve('razzle/node_modules/babel-loader/lib/index.js')
       },
       {
         loader: require.resolve('ts-loader'),
