@@ -16,8 +16,12 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
         include,
         test: /\.tsx?$/,
         use: [
-          isDev && { loader: 'cache-loader' },
-          blendJS && jsLoader,
+          isDev && { loader: require.resolve('cache-loader') },
+          {
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            loader: require.resolve('babel-loader')
+          },
           {
             loader: require.resolve('ts-loader'),
             options: {
@@ -27,7 +31,7 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
           }
         ].filter(x => x)
       },
-      jsLoader
+      jsLoader(include)
     ]
   }
 
@@ -47,12 +51,9 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
   }
 }
 
-const jsLoader = {
+const jsLoader = (include) => ({
+  include,
   test: /\.jsx?$/,
   exclude: /node_modules/,
-  use: [
-    {
-      loader: 'babel-loader'
-    }
-  ]
-}
+  loader: 'babel-loader'
+})
