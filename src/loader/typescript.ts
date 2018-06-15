@@ -1,7 +1,4 @@
 import * as webpack from 'webpack'
-import * as path from 'path'
-
-const modPath = path.join(__dirname, '..', '..', 'node_modules')
 
 /**
  *
@@ -19,7 +16,7 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
     use: [
       isDev && { loader: require.resolve('cache-loader') },
       blendJS && {
-        loader: require.resolve(`${modPath}/razzle/node_modules/babel-loader/lib/index.js`)
+        loader: require.resolve('babel-loader')
       },
       {
         loader: require.resolve('ts-loader'),
