@@ -132,9 +132,9 @@ export function modifyBuilder (
      */
     if (razzleOptions.overrideTSLoader) {
       delete razzleOptions.overrideTSLoader
-      r.push(tsLoader(config, dev))
+      r.push(...tsLoader(config, dev, true))
     } else {
-      r[babelLoader] = tsLoader(config, dev)
+      r[babelLoader] = tsLoader(config, dev, false)
     }
 
     r.push(sourcemapLoader())

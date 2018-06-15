@@ -15,7 +15,7 @@ Check out the [example](./examples) to utilize this configuration.
 
 ## Features
 
-- Typescript
+- Typescript (with JS polyfill support via the TSLoaderOverride flag)
 - Offline
 - Progressive Web App
 - File compression optimizations (Brotli, GZIP)
