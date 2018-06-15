@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.7"></a>
+## [0.3.7](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.3.6...v0.3.7) (2018-06-15)
+
+
+### Bug Fixes
+
+* **ops:** Due to a bug in babel-minify, move all optimization to userland ([8e391dc](https://github.com/rhodee/ts-razzle-modificaions/commit/8e391dc))
+
+
+
 <a name="0.3.6"></a>
 ## [0.3.6](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.3.5...v0.3.6) (2018-06-15)
 
