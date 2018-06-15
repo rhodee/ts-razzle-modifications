@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.6"></a>
+## [0.3.6](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.3.5...v0.3.6) (2018-06-15)
+
+
+### Bug Fixes
+
+* **loaders:** Defer to the razzle version of the babel-loader ([2614af6](https://github.com/rhodee/ts-razzle-modificaions/commit/2614af6))
+
+
+
 <a name="0.3.5"></a>
 ## [0.3.5](https://github.com/rhodee/ts-razzle-modificaions/compare/v0.3.4...v0.3.5) (2018-06-15)
 
