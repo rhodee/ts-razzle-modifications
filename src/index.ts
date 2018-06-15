@@ -14,7 +14,6 @@ import {
   common as commonPlugins,
   client as clientCommonPlugins
 } from './plugin/common'
-import { optimizeAssets } from './plugin/optimization'
 import { defaultConfig } from './defaultConfig'
 
 const rMods = path.resolve(__dirname, '..', 'node_modules')
@@ -205,7 +204,7 @@ export function modifyBuilder (
     const c = (config.plugins && config.plugins) || []
 
     if (!isDev(dev) && !isServer(target)) {
-      c.push(...optimizeAssets(), cssPlugin)
+      c.push(cssPlugin)
     }
 
     if (isServer(target)) {

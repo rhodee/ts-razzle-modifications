@@ -125,12 +125,9 @@
   },
   "dependencies": {
     "autoprefixer": "^7.2.5",
-    "babel-minify-webpack-plugin": "^0.2.0",
-    "brotli-webpack-plugin": "^0.5.0",
     "cache-loader": "^1.2.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "circular-dependency-plugin": "^4.2.1",
-    "compression-webpack-plugin": "^1.1.11",
     "fork-ts-checker-webpack-plugin": "^0.3.0",
     "happypack": "^4.0.1",
     "image-webpack-loader": "~4.2.0",
