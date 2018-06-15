@@ -18,8 +18,6 @@ export const tsLoader = (config: webpack.Configuration, isDev: boolean, blendJS:
         use: [
           isDev && { loader: require.resolve('cache-loader') },
           {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
             loader: require.resolve('babel-loader')
           },
           {
